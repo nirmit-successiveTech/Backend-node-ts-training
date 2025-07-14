@@ -4,6 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const math_1 = require("../src/lib/math");
+const data_1 = require("./data");
+const express_1 = __importDefault(require("express"));
 const readline_1 = __importDefault(require("readline"));
 const fs_1 = __importDefault(require("fs"));
 const rl = readline_1.default.createInterface({
@@ -30,4 +32,11 @@ rl.question('Enter the first number: ', (input1) => {
         console.log("Result saved to output.csv");
         rl.close();
     });
+});
+const app = (0, express_1.default)();
+app.get('/api', (req, res) => {
+    res.send(data_1.users);
+});
+app.listen(3000, () => {
+    console.log("app working");
 });
