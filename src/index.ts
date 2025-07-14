@@ -4,6 +4,9 @@ import { User,users } from "./data";
 import express from 'express'
 import readline from "readline";
 import fs from "fs";
+import {router} from "./routes/userRoutes"
+
+
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -37,11 +40,13 @@ rl.question('Enter the first number: ', (input1) => {
   });
 });
 
-const app = express();
 
-app.get('/api',(req:Request,res:Response)=>{
-  res.send(users)
-})
+const app = express();
+app.use(express.json());
+
+
+
+app.use("/api",router)
 
 app.listen(3000,()=>{
   console.log("app working")
