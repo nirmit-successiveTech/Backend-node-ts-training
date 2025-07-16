@@ -1,4 +1,7 @@
 import { add, sub,mul,div } from "../src/lib/math";
+import { Request,Response } from "express";
+import { User,users } from "./data";
+import express from 'express'
 import readline from "readline";
 import fs from "fs";
 
@@ -33,3 +36,17 @@ rl.question('Enter the first number: ', (input1) => {
     rl.close();
   });
 });
+
+const app = express();
+
+app.get('/api',(req:Request,res:Response)=>{
+  res.send(users)
+})
+
+app.listen(3000,()=>{
+  console.log("app working")
+})
+
+
+
+
