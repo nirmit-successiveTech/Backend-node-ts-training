@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.router = void 0;
+const express_1 = require("express");
+const userController_1 = require("../controller/userController");
+const validateUser_1 = require("../middleware/validateUser");
+// import { loggerFunction } from "../middleware/loggerFunction";
+const router = (0, express_1.Router)();
+exports.router = router;
+router.get("/userdata", userController_1.showData);
+router.post("/storedata", validateUser_1.validateUser, userController_1.storeData);

@@ -1,14 +1,15 @@
 import { Router } from "express";
-import { showData, ShowDetails, storeData } from "../controller/userController";
-import { validateUser } from "../middleware/validateUser";
+import { showData, storeData } from "../controller/userController";
+import { validateUser, validateUserJwt } from "../middleware/validateUser";
+// import { loggerFunction } from "../middleware/loggerFunction";
 
 
 
 const router = Router();
 
-router.get("/userdata",showData);
+router.get("/userdata",validateUserJwt,showData);
 router.post("/storedata",validateUser,storeData)
-router.get("/showdetails",ShowDetails)
+
 
 
 export {router};
