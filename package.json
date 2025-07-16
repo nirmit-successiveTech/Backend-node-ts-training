@@ -6,8 +6,7 @@
     "dev": "nodemon --exec ts-node src/app.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "calculate":"ts-node src/index.ts"
-    
+    "calculate": "ts-node src/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +16,7 @@
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
+    "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",
     "nodemon": "^3.1.10"
