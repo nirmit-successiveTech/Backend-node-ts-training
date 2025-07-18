@@ -4,6 +4,17 @@ import { User,users } from "./data";
 import express from 'express'
 import readline from "readline";
 import fs from "fs";
+import {router} from "./routes/userRoutes"
+import { errorHandler } from "./middleware/errorHandler";
+import dotenv from "dotenv";
+import { loggerFunction } from "./middleware/loggerFunction";
+import customHeader from "./middleware/customHeader";
+import { rateLimiter } from "./middleware/rateLimiter";
+
+
+dotenv.config();
+let count :number = 3;
+
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -37,15 +48,9 @@ rl.question('Enter the first number: ', (input1) => {
   });
 });
 
-const app = express();
 
-app.get('/api',(req:Request,res:Response)=>{
-  res.send(users)
-})
 
-app.listen(3000,()=>{
-  console.log("app working")
-})
+
 
 
 
