@@ -9,7 +9,7 @@ export const rateLimiter=(count:number)=>{
         console.log(ratelimit,currentrequest)
         if(currentrequest.current<ratelimit){
             currentrequest.current++;
-            console.log(ratelimit);
+            console.log(ratelimit,currentrequest);
             setInterval(()=>{
                 currentrequest.current=0;
             },2000)

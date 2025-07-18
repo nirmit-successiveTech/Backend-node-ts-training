@@ -43,3 +43,18 @@ export const storeData = async (
   }
 };
 
+
+
+export const checkSchema=(req:Request,res:Response,next:NextFunction)=>{
+  try {
+    console.log("calling controller after checking schema");
+    res.status(200).json({
+      success:true,
+      message:"Checked Schema"
+    });
+    next();
+  } catch (err) {
+    next(err);
+  }
+}
+

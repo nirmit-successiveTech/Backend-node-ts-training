@@ -17,7 +17,7 @@ const app = express();
 
 app.use(express.json());
 app.use(customHeader('by nirmit'))
-// app.use(loggerFunction);
+app.use(loggerFunction);
 app.use(rateLimiter(count))
 
 app.use("/api",router)
