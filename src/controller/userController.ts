@@ -1,6 +1,7 @@
 import { users } from "../data";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
+
 import { UserInterface } from "../interface/userInterface";
 
 
@@ -54,4 +55,5 @@ export class UserController {
       next(err);
     }
   };
+
 }
