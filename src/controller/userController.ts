@@ -14,7 +14,7 @@ export const showData = async (
 ) => {
   try {
     res.status(200).send(users);
-    console.log("Ending")
+    console.log("Ending request")
   } catch (err) {
     next(err);
   }
