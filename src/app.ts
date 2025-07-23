@@ -11,7 +11,8 @@ import {  HttpErrors } from './middleware/errormiddleware';
 import { Header } from './middleware/customHeader';
 import { RateLimiterApi } from './middleware/rateLimiter';
 import { connection } from './config/db'
-import { sportsroute } from './routes/dummyRoutes';
+import { PlayingCountries } from './middleware/sportsCountries';
+
 dotenv.config();
 
 let count :number = 3;
@@ -23,10 +24,9 @@ app.use(express.json());
 app.use(Header.customHeader('by nirmit'))
 app.use(LogApiMethod.loggerFunction);
 app.use(RateLimiterApi.rateLimiter(count))
-
+app.use(PlayingCountries.allCountries);
 app.use("/api",router)
 app.use("/test",errorroute)
-app.use("/playing",sportsroute)
 app.use(HttpErrors.errormiddleware)
 app.use(ErrorHanlderMiddleware.errorHandler)
 
