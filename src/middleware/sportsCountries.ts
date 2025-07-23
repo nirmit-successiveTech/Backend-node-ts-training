@@ -10,9 +10,7 @@ export class PlayingCountries {
     try {
       const checkdata = await countries.findOne();
       if (checkdata !== null) {
-        return res.send({
-            message:"Data exists already"
-        });
+        return next();
       } else {
         await countries.insertMany([
           { country: "USA" },
