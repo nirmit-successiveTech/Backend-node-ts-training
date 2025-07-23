@@ -5,7 +5,8 @@ import { ValidateUserQuery } from "../middleware/validateQuery";
 import { UserController } from "../controller/userController";
 import { ValidateUserLocation } from "../middleware/validateLocation";
 import { DynamicUserValidation } from "../middleware/dynamicValidation";
-import { HealthCheck } from "./healthRoute";
+import { HealthCheck } from "../middleware/checkHeath";
+
 
 
 
