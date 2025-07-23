@@ -2,11 +2,13 @@
 import { Router } from "express";
 import { Request,Response,NextFunction } from "express";
 import createError from "http-errors"
-import { ValidateUserCredentials } from "../middleware/validateUser";
+import { AsyncError } from "../middleware/asyncerror";
+// import { ValidateUserCredentials } from "../middleware/validateUser";
 
 
 const errorroute = Router();
-const validateUserCredentials= new ValidateUserCredentials();
+const customasyncerror = new AsyncError()
+
 
 errorroute.get('/user',((req:Request,res:Response,next:NextFunction)=>(
     next(createError(400,"Bad Request"))
@@ -24,6 +26,7 @@ errorroute.get('/dashboard',async(req:Request,res:Response,next:NextFunction)=>(
     next(createError(502,"Bad Gateaway"))
 ))
 
-errorroute.get('userdata',validateUserCredentials.validateUser);
+errorroute.get('/userdata',customasyncerror.errorwrapper);
+
 
 export {errorroute};
