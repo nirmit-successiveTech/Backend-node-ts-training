@@ -31,7 +31,7 @@ router.get("/location",validateUserLocation.validateLocation);
 router.post('/user/register',dynamicUserValidation.dynamicValidation);
 router.get('/checkapi',checkheath.checkHealthApi);
 
-router.post('/new',storeNewUser.newUserDetail,userController.newUserStorage) //a9 
+router.post('/newuser',storeNewUser.newUserDetail,userController.newUserStorage) //a9 
 
 
 
