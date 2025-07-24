@@ -8,7 +8,7 @@ export class PlayingCountries {
     next: NextFunction
   ) => {
     try {
-      const checkdata = await countries.findOne();
+      const checkdata = await countries.find();
       if (checkdata !== null) {
         return res.send({
             message:"Data exists already"
