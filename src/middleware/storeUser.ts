@@ -13,11 +13,16 @@ export class StoreNewUser{
         try {
             console.log("calling newuserdetail middleware")
             const {error} = this.UserDetailSchema.validate(req.body);
-            
-            if(!error){
-                console.log("no error in user validation")
-                return next();
+
+            if(error){
+                return res.status(400).json({
+                success:false,
+                message:error?.message
+            })
             }
+
+            return next();
+
         } catch (error) {
             console.log("error validating user");
             next(error)
