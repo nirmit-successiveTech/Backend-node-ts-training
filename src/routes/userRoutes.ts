@@ -9,6 +9,10 @@ import { HealthCheck } from "../middleware/checkHeath";
 import { StoreNewUser } from "../middleware/storeUser";
 import { SignUpUser } from "../middleware/signupDetails";
 import { UserLogin } from "../controller/userLogin";
+import { AuthUser } from "../middleware/authUser";
+import { AuthUserSignUp } from "../controller/authSignup";
+import { AuthUserLogin } from "../middleware/authLogin";
+import { AdminToken } from "../middleware/adminrole";
 
 
 
@@ -25,6 +29,10 @@ const checkheath = new HealthCheck();
 const storeNewUser= new StoreNewUser();
 const  signUpUser= new SignUpUser();
 const userLogin= new UserLogin();
+const  authUser= new AuthUser();
+const authUserSignUp= new AuthUserSignUp();
+const  authUserLogin= new AuthUserLogin();
+const adminToken= new AdminToken();
 
 
 router.get("/userdata",validateUserCredentials.validateUserJwt,userController.showData);
@@ -37,8 +45,11 @@ router.get('/checkapi',checkheath.checkHealthApi);
 
 router.post('/newuser',storeNewUser.newUserDetail,userController.newUserStorage) //a9 
 router.post('/signup',signUpUser.newSignUp,userController.signUser) //a10
-router.post('/login',userLogin.existingUserLogin)
+router.post('/login',userLogin.existingUserLogin);
 
+router.post('/authsignup',authUser.authValidation,authUserSignUp.UserSignUp) //a11
+router.post('/authlogin',authUserLogin.UserLogin); //a11
+router.get('/verify-token',adminToken.verifyToken)
 
 
 export {router};
