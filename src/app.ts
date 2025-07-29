@@ -12,6 +12,7 @@ import { Header } from './middleware/customHeader';
 import { RateLimiterApi } from './middleware/rateLimiter';
 import { connection } from './config/db'
 import { PlayingCountries } from './middleware/sportsCountries';
+import { SecurityHeader } from './middleware/securityHeader';
 
 dotenv.config();
 
@@ -26,7 +27,8 @@ app.use(LogApiMethod.loggerFunction);
 app.use(RateLimiterApi.rateLimiter(count))
 app.use(PlayingCountries.allCountries);
 app.use("/api",router)
-app.use("/test",errorroute)
+app.use("/test",errorroute);
+app.use(SecurityHeader.headerProtection)
 app.use(HttpErrors.errormiddleware)
 app.use(ErrorHanlderMiddleware.errorHandler)
 
