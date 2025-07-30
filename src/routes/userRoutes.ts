@@ -38,10 +38,10 @@ const adminToken= new AdminToken();
 router.get("/userdata",validateUserCredentials.validateUserJwt,userController.showData);
 router.post("/storedata",validateUserCredentials.validateUser,userController.storeData);
 router.post("/usercredentials",validateUserSchema.validateSchema,userController.checkSchema);
-router.get("/fetchid/:id",validateUserQuery.validateQuery);
-router.get("/location",validateUserLocation.validateLocation);
+router.get("/fetchid/:id",adminToken.verifyToken,validateUserQuery.validateQuery);  //a11
+router.get("/location",adminToken.verifyToken,validateUserLocation.validateLocation);  // a11
 router.post('/user/register',dynamicUserValidation.dynamicValidation);
-router.get('/checkapi',checkheath.checkHealthApi);
+router.get('/checkapi',adminToken.verifyToken,checkheath.checkHealthApi); //a11
 
 router.post('/newuser',storeNewUser.newUserDetail,userController.newUserStorage) //a9 
 router.post('/signup',signUpUser.newSignUp,userController.signUser) //a10
@@ -49,7 +49,7 @@ router.post('/login',userLogin.existingUserLogin);
 
 router.post('/authsignup',authUser.authValidation,authUserSignUp.UserSignUp) //a11
 router.post('/authlogin',authUserLogin.UserLogin); //a11
-router.get('/verify-token',adminToken.verifyToken)
+// router.get('/verify-token',adminToken.verifyToken)
 
 
 export {router};
