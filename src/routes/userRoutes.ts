@@ -6,6 +6,7 @@ import { UserController } from "../controller/userController";
 import { ValidateUserLocation } from "../middleware/validateLocation";
 import { DynamicUserValidation } from "../middleware/dynamicValidation";
 import { HealthCheck } from "../middleware/checkHeath";
+import { StoreNewUser } from "../middleware/storeUser";
 
 
 
@@ -18,7 +19,9 @@ const validateUserQuery = new ValidateUserQuery();
 const validateUserLocation = new ValidateUserLocation();
 const dynamicUserValidation = new DynamicUserValidation();
 const validateUserCredentials= new ValidateUserCredentials();
-const checkheath = new HealthCheck()
+const checkheath = new HealthCheck();
+const storeNewUser= new StoreNewUser();
+
 
 router.get("/userdata",validateUserCredentials.validateUserJwt,userController.showData);
 router.post("/storedata",validateUserCredentials.validateUser,userController.storeData);
@@ -26,7 +29,9 @@ router.post("/usercredentials",validateUserSchema.validateSchema,userController.
 router.get("/fetchid/:id",validateUserQuery.validateQuery);
 router.get("/location",validateUserLocation.validateLocation);
 router.post('/user/register',dynamicUserValidation.dynamicValidation);
-router.get('/checkapi',checkheath.checkHealthApi)
+router.get('/checkapi',checkheath.checkHealthApi);
+
+router.post('/newuser',storeNewUser.newUserDetail,userController.newUserStorage) //a9 
 
 
 

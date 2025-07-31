@@ -10,23 +10,16 @@ export class PlayingCountries {
     try {
       const checkdata = await countries.find();
       if (checkdata !== null) {
-        return res.send({
-            message:"Data exists already"
-        });
+        return next();
       } else {
         await countries.insertMany([
           { country: "USA" },
           { country: "INDIA" },
           { country: "PAKISTAN" },
         ]);
-        res.status(200).json({
-          success: true,
-          message: "data sent to database successfully",
-        });
         console.log("sent to db");
+        return next();
       }
-      console.log("checkdata", checkdata);
-      console.log("calling seeding routes");
     } catch (error) {
       console.log("error logging values");
       next(error);

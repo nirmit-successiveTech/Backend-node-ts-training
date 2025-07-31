@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
 import { UserInterface } from "../interface/userInterface";
-
+import { createUser } from "../models/userDetails";
 
 
 export class UserController {
@@ -55,5 +55,23 @@ export class UserController {
       next(err);
     }
   };
+
+  newUserStorage = async(req:Request,res:Response,next:NextFunction)=>{
+    try {
+      console.log("calling controller to store data");
+      const {username,email} = req.body;
+      console.log("data is",username,email);
+      const storeUser = new createUser({username,email})
+      await storeUser.save();
+      res.status(200).json({
+        message:"Saved to db",
+        success:true
+      })
+      console.log("data saved");
+    } catch (error) {
+      console.log("error storing in db");
+      next(error)
+    }
+  }
 
 }
