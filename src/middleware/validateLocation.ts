@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import geoip from "geoip-lite";
 
-export const validateLocation = (
+export class ValidateUserLocation{
+   validateLocation = (
   req: Request,
   res: Response,
   next: NextFunction
@@ -21,3 +22,5 @@ export const validateLocation = (
     next(error);
   }
 };
+}
+
