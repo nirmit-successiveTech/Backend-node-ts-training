@@ -9,6 +9,10 @@ import { HealthCheck } from "../middleware/checkHeath";
 import { StoreNewUser } from "../middleware/storeUser";
 import { SignUpUser } from "../middleware/signupDetails";
 import { UserLogin } from "../controller/userLogin";
+import { AuthUser } from "../middleware/authUser";
+import { AuthUserSignUp } from "../controller/authSignup";
+import { AuthUserLogin } from "../middleware/authLogin";
+import { AdminToken } from "../middleware/adminrole";
 
 
 
@@ -25,20 +29,27 @@ const checkheath = new HealthCheck();
 const storeNewUser= new StoreNewUser();
 const  signUpUser= new SignUpUser();
 const userLogin= new UserLogin();
+const  authUser= new AuthUser();
+const authUserSignUp= new AuthUserSignUp();
+const  authUserLogin= new AuthUserLogin();
+const adminToken= new AdminToken();
 
 
 router.get("/userdata",validateUserCredentials.validateUserJwt,userController.showData);
 router.post("/storedata",validateUserCredentials.validateUser,userController.storeData);
 router.post("/usercredentials",validateUserSchema.validateSchema,userController.checkSchema);
-router.get("/fetchid/:id",validateUserQuery.validateQuery);
-router.get("/location",validateUserLocation.validateLocation);
+router.get("/fetchid/:id",adminToken.verifyToken,validateUserQuery.validateQuery);  //a11
+router.get("/location",adminToken.verifyToken,validateUserLocation.validateLocation);  // a11
 router.post('/user/register',dynamicUserValidation.dynamicValidation);
-router.get('/checkapi',checkheath.checkHealthApi);
+router.get('/checkapi',adminToken.verifyToken,checkheath.checkHealthApi); //a11
 
 router.post('/newuser',storeNewUser.newUserDetail,userController.newUserStorage) //a9 
 router.post('/signup',signUpUser.newSignUp,userController.signUser) //a10
-router.post('/login',userLogin.existingUserLogin)
+router.post('/login',userLogin.existingUserLogin);
 
+router.post('/authsignup',authUser.authValidation,authUserSignUp.UserSignUp) //a11
+router.post('/authlogin',authUserLogin.UserLogin); //a11
+// router.get('/verify-token',adminToken.verifyToken)
 
 
 export {router};
