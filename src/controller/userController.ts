@@ -1,9 +1,11 @@
 import { users } from "../data";
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-
+import bcrypt from "bcrypt"
 import { UserInterface } from "../interface/userInterface";
 import { createUser } from "../models/userDetails";
+import { SignupInterface } from "../interface/userInterface";
+import { registerUser } from "../models/userRegister";
 
 
 export class UserController {
@@ -71,6 +73,37 @@ export class UserController {
     } catch (error) {
       console.log("error storing in db");
       next(error)
+    }
+  }
+
+  signUser=async(req:Request,res:Response,next:NextFunction)=>{
+    try {
+      
+      console.log("calling signup route");
+      const {name,password} = req.body;
+
+      if (!name || !password){
+        next(new Error("name or password missing"));
+      }
+      console.log("name and password is",name,password);
+      const key:string = process.env.SECRET_KEY || "secret_123";
+
+      const userbody:SignupInterface = req.body;
+      console.log("userbody",userbody);
+
+      const hashedpassword = await bcrypt.hash(password,8);
+      console.log("hashpassword is",hashedpassword);
+
+      const signupuser = new registerUser({name,password:hashedpassword});
+
+      await signupuser.save();
+      return res.status(200).json({
+        success:true,
+        message:"User successfully registered"
+      })
+
+    } catch (error) {
+      next(error);
     }
   }
 
