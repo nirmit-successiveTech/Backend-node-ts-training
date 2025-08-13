@@ -97,7 +97,7 @@ export class UserController {
       const signupuser = new registerUser({name,password:hashedpassword});
 
       await signupuser.save();
-      return res.status(200).json({
+      return res.status(201).json({
         success:true,
         message:"User successfully registered"
       })

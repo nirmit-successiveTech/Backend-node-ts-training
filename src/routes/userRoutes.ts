@@ -13,6 +13,7 @@ import { AuthUser } from "../middleware/authUser";
 import { AuthUserSignUp } from "../controller/authSignup";
 import { AuthUserLogin } from "../middleware/authLogin";
 import { AdminToken } from "../middleware/adminrole";
+import { Crud } from "../controller/crud";
 
 
 
@@ -34,6 +35,8 @@ const authUserSignUp= new AuthUserSignUp();
 const  authUserLogin= new AuthUserLogin();
 const adminToken= new AdminToken();
 
+const crud = new Crud();
+
 
 router.get("/userdata",validateUserCredentials.validateUserJwt,userController.showData);
 router.post("/storedata",validateUserCredentials.validateUser,userController.storeData);
@@ -49,7 +52,12 @@ router.post('/login',userLogin.existingUserLogin);
 
 router.post('/authsignup',authUser.authValidation,authUserSignUp.UserSignUp) //a11
 router.post('/authlogin',authUserLogin.UserLogin); //a11
-// router.get('/verify-token',adminToken.verifyToken)
 
+// router.get('/verify-token',adminToken.verifyToken);
+
+//crud 
+router.post("/create",crud.create);
+router.put("/update/:id",crud.update)
+router.delete("/delete/:id",crud.delete)
 
 export {router};

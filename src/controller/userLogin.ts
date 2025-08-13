@@ -15,7 +15,7 @@ export class UserLogin{
                  matchData = await bcrypt.compare(password,data.password)
             }
             if(matchData){
-                return res.json({
+                return res.status(200).json({
                     success:true,
                     message:"successful user login"
                 })
